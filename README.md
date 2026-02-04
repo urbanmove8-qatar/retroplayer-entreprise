@@ -22,7 +22,8 @@
 2.  Add your video content as usual.
 3.  (Optional) Use permission tags:
     ```html
-    <downloadallow></downloadallow> ```
+    <downloadallow></downloadallow>
+    ```
 
 ## 🛠️ Installation
 
