@@ -36,7 +36,7 @@ Simply drop the `retroplayer.js` into your project and call it:
 or use our CDN version for instant enterprise deployment:
 
 ```html
-<script src"https://cdn.jsdelivr.net/gh/urbanmove8-qatar/retroplayer-entreprise@v1.0.0/retroplayer.js"></script>
+<script src"https://cdn.jsdelivr.net/gh/urbanmove8-qatar/retroplayer-entreprise/retroplayer.js"></script>
 ```
 
 ## 🐛 Bug Reports & Feedback
