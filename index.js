@@ -1,7 +1,6 @@
 /**
  * RetroPlayer v1.0.0 (Enterprise Open Source)
- * A Zöldhegy Media Systems Project
- * Features: Keybinds, Responsive UI, Fullscreen Fix
+ * Urbanmove 8 Kft. and Urbanmove 8 Qatar Sole Prop.
  */
 
 (function() {
@@ -15,64 +14,43 @@
     const style = document.createElement('style');
     style.textContent = `
         video::-webkit-media-controls { display:none !important; }
-        
         .retro-ui-wrapper {
             background: #ffffff; padding: 2px; border: 1px solid #1760a5;
             display: inline-flex; flex-direction: column; 
             position: relative; font-family: 'Segoe UI', sans-serif;
             box-shadow: 0 0 15px rgba(0,0,0,0.2); overflow: hidden;
         }
-
-        /* FIXED FULLSCREEN LOGIC */
         .retro-ui-wrapper:fullscreen {
             width: 100vw !important; height: 100vh !important;
             display: flex !important; flex-direction: column !important;
             background: #000; padding: 0; border: none;
         }
-
         .retro-video-viewport { 
             background: #000; position: relative; overflow: hidden; 
-            display: flex; align-items: center; justify-content: center;
-            flex-grow: 1; /* This ensures it takes all space in fullscreen */
+            display: flex; align-items: center; justify-content: center; flex-grow: 1;
         }
-        
-        .retro-video-viewport iframe, .retro-video-viewport video {
-            width: 100% !important; height: 100% !important;
-        }
-
+        .retro-video-viewport iframe, .retro-video-viewport video { width: 100% !important; height: 100% !important; border:none; }
         .retro-control-bar {
             height: 48px; background: #0078d7;
             display: flex; align-items: center; padding: 0 15px; gap: 15px;
             color: #ffffff; flex-shrink: 0; z-index: 10;
         }
-        
         .retro-btn { 
             height: 32px; min-width: 32px; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; font-size: 18px; border: 2px solid transparent; transition: 0.1s;
-            user-select: none;
+            cursor: pointer; font-size: 18px; border: 2px solid transparent; transition: 0.1s; user-select: none;
         }
         .retro-btn:hover { background: rgba(255, 255, 255, 0.15); border-color: rgba(255,255,255,0.3); }
         .retro-btn:active { background: #ffffff; color: #0078d7; }
-        
-        .retro-seek-bar, .custom-vol-bg { 
-            height: 4px; background: rgba(255,255,255,0.2);
-            cursor: pointer; position: relative;
-        }
+        .retro-seek-bar, .custom-vol-bg { height: 4px; background: rgba(255,255,255,0.2); cursor: pointer; position: relative; }
         .retro-seek-bar { flex-grow: 1; }
         .custom-vol-bg { width: 60px; }
-        
-        .retro-seek-fill, .custom-vol-fill { height: 100%; background: #ffffff; pointer-events: none; }
-        
+        .retro-seek-fill, .custom-vol-fill { height: 100%; background: #ffffff; pointer-events: none; width: 0%; }
         .retro-time { color: #ffffff; font-size: 12px; font-weight: 300; min-width: 50px; text-align: center; }
-
-        /* Notification Toast */
         .retro-toast {
             position: absolute; top: 20px; right: 20px; background: rgba(0, 120, 215, 0.9);
             color: white; padding: 10px 20px; font-size: 13px; display: none; z-index: 100;
-            border-left: 5px solid #fff; animation: slideIn 0.3s ease;
+            border-left: 5px solid #fff;
         }
-        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
-
         .retro-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.7); z-index: 10001; display: none;
@@ -83,7 +61,6 @@
         .m-body { padding: 0 20px 20px 20px; font-size: 13px; color: #555; line-height: 1.5; }
         .m-foot { padding: 15px; text-align: right; background: #f2f2f2; }
         .m-btn { padding: 7px 25px; border: 2px solid #999; background: #e1e1e1; cursor: pointer; font-weight: bold; }
-
         .retro-menu {
             position: fixed; background: #f9f9f9; border: 1px solid #999; 
             box-shadow: 5px 5px 15px rgba(0,0,0,0.2); z-index: 10000; display: none; min-width: 180px;
@@ -93,10 +70,9 @@
     `;
     document.head.appendChild(style);
 
-    const toast = document.createElement('div'); toast.className = 'retro-toast';
     const modal = document.createElement('div');
     modal.className = 'retro-modal';
-    modal.innerHTML = `<div class="m-box"><div class="m-head">RetroPlayer Enterprise</div><div class="m-body">Version 1.0.0-Release<br>Optimized for IE10/Windows 8 Framework.<br><br><b>Shortcuts:</b><br>Space: Play/Pause<br>M: Mute<br>F: Fullscreen</div><div class="m-foot"><button class="m-btn">Dismiss</button></div></div>`;
+    modal.innerHTML = `<div class="m-box"><div class="m-head">RetroPlayer Enterprise</div><div class="m-body">Version 1.0.0-Release<br>Optimized for IE10/Windows 8 Framework.<br><br><b>Shortcuts:</b><br>Space: Play/Pause | M: Mute | F: Fullscreen</div><div class="m-foot"><button class="m-btn">Dismiss</button></div></div>`;
     document.body.appendChild(modal);
     modal.querySelector('.m-btn').onclick = () => modal.style.display = 'none';
 
@@ -106,11 +82,6 @@
     document.body.appendChild(menu);
     menu.querySelector('#m-abt').onclick = () => { modal.style.display = 'flex'; menu.style.display = 'none'; };
 
-    const showToast = (msg) => {
-        toast.innerText = msg; toast.style.display = 'block';
-        clearTimeout(window.tT); window.tT = setTimeout(() => toast.style.display = 'none', 2000);
-    };
-
     window.RetroPlayerBeta = () => {
         const canDl = !!document.querySelector('downloadallow') && !document.querySelector('downloaddisallow');
 
@@ -119,7 +90,8 @@
             el.dataset.retroActive = "true";
 
             const wrap = document.createElement('div'); wrap.className = 'retro-ui-wrapper';
-            wrap.appendChild(toast.cloneNode(true)); // Add toast to wrapper
+            const toast = document.createElement('div'); toast.className = 'retro-toast';
+            wrap.appendChild(toast);
             
             const origW = el.getAttribute('width') || el.clientWidth || 640;
             const origH = el.getAttribute('height') || el.clientHeight || 360;
@@ -143,7 +115,6 @@
             el.parentNode.insertBefore(wrap, el);
             wrap.appendChild(view); view.appendChild(el); wrap.appendChild(bars);
 
-            // Context Menu
             wrap.oncontextmenu = (e) => {
                 e.preventDefault(); menu.style.display = 'block'; menu.style.left = e.clientX + 'px'; menu.style.top = e.clientY + 'px';
             };
@@ -156,32 +127,55 @@
             const mBtn = bars.querySelector('.m-btn');
             const sBtn = bars.querySelector('.s-btn');
             const bar  = bars.querySelector('.retro-seek-bar');
-            const currentToast = wrap.querySelector('.retro-toast');
 
             const getX = (e, obj) => (e.clientX - obj.getBoundingClientRect().left) / obj.offsetWidth;
             const localToast = (m) => {
-                currentToast.innerText = m; currentToast.style.display = 'block';
-                setTimeout(() => currentToast.style.display = 'none', 2000);
+                toast.innerText = m; toast.style.display = 'block';
+                setTimeout(() => toast.style.display = 'none', 2000);
             };
 
-            // Keyboard Logic
-            window.addEventListener('keydown', (e) => {
-                if (document.fullscreenElement !== wrap) return;
-                if (e.code === 'Space') { e.preventDefault(); pBtn.click(); }
-                if (e.code === 'KeyM') { mBtn.click(); }
-                if (e.code === 'KeyF') { wrap.querySelector('.f-btn').click(); }
-            });
+            const format = (s) => isNaN(s) ? "0:00" : Math.floor(s/60) + ":" + (Math.floor(s%60)).toString().padStart(2, '0');
 
-            // Native Video Logic
-            if (!el.src.includes('youtube') && !el.src.includes('vimeo')) {
+            // Logic Switcher
+            if (el.src && el.src.includes('youtube')) {
+                const uid = "yt-" + Date.now() + idx; el.id = uid;
+                if (!el.src.includes('enablejsapi=1')) el.src += (el.src.includes('?') ? '&' : '?') + 'enablejsapi=1&controls=0';
+                const ytPoll = setInterval(() => {
+                    if (window.YT && YT.Player) {
+                        clearInterval(ytPoll);
+                        const player = new YT.Player(uid, {
+                            events: {
+                                'onReady': (ev) => {
+                                    pBtn.onclick = () => ev.target.getPlayerState() === 1 ? ev.target.pauseVideo() : ev.target.playVideo();
+                                    mBtn.onclick = () => { 
+                                        if(ev.target.isMuted()) { ev.target.unMute(); mBtn.innerText = '🔊'; localToast("Unmuted"); }
+                                        else { ev.target.mute(); mBtn.innerText = '🔇'; localToast("Muted"); }
+                                    };
+                                    bar.onclick = (e) => ev.target.seekTo(getX(e, bar) * ev.target.getDuration());
+                                    vBg.onclick = (e) => { let v = getX(e, vBg); ev.target.setVolume(v*100); vFill.style.width = (v*100)+'%'; };
+                                    sBtn.onclick = () => { 
+                                        let r = ev.target.getPlaybackRate(); let n = r >= 2 ? 0.5 : r + 0.5;
+                                        ev.target.setPlaybackRate(n); sBtn.innerText = n + 'x'; localToast("Speed: " + n + "x");
+                                    };
+                                    setInterval(() => {
+                                        fill.style.width = (ev.target.getCurrentTime() / ev.target.getDuration() * 100) + '%';
+                                        time.innerText = format(ev.target.getCurrentTime());
+                                        pBtn.innerText = ev.target.getPlayerState() === 1 ? 'Ⅱ' : '▶';
+                                    }, 500);
+                                }
+                            }
+                        });
+                    }
+                }, 500);
+            } else {
+                // Native/Vimeo fallback logic
                 pBtn.onclick = () => el.paused ? el.play() : el.pause();
                 mBtn.onclick = () => { el.muted = !el.muted; mBtn.innerText = el.muted ? '🔇' : '🔊'; localToast(el.muted ? "Muted" : "Unmuted"); };
                 bar.onclick = (e) => el.currentTime = getX(e, bar) * el.duration;
                 vBg.onclick = (e) => { el.volume = getX(e, vBg); vFill.style.width = (el.volume * 100) + '%'; };
                 sBtn.onclick = () => { 
                     el.playbackRate = el.playbackRate >= 2 ? 0.5 : el.playbackRate + 0.5; 
-                    sBtn.innerText = el.playbackRate + 'x';
-                    localToast("Speed: " + el.playbackRate + "x");
+                    sBtn.innerText = el.playbackRate + 'x'; localToast("Speed: " + el.playbackRate + "x");
                 };
                 el.ontimeupdate = () => {
                     fill.style.width = (el.currentTime / el.duration * 100) + '%';
@@ -190,18 +184,18 @@
                 };
             }
 
-            // Fullscreen Toggler
-            bars.querySelector('.f-btn').onclick = () => {
-                if (!document.fullscreenElement) {
-                    wrap.requestFullscreen().catch(err => console.log(err));
-                } else {
-                    document.exitFullscreen();
-                }
-            };
+            // Global Keybinds for active player
+            window.addEventListener('keydown', (e) => {
+                if (document.fullscreenElement !== wrap) return;
+                if (e.code === 'Space') { e.preventDefault(); pBtn.click(); }
+                if (e.code === 'KeyM') mBtn.click();
+                if (e.code === 'KeyF') wrap.querySelector('.f-btn').click();
+            });
+
+            bars.querySelector('.f-btn').onclick = () => document.fullscreenElement ? document.exitFullscreen() : wrap.requestFullscreen();
         });
     };
 
-    function format(s) { return isNaN(s) ? "0:00" : Math.floor(s/60) + ":" + (Math.floor(s%60)).toString().padStart(2, '0'); }
     window.addEventListener('load', () => setTimeout(window.RetroPlayerBeta, 1000));
     document.addEventListener('click', () => menu.style.display = 'none');
 })();
