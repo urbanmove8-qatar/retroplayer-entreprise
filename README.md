@@ -36,14 +36,14 @@ Simply drop the `retroplayer.js` into your project and call it:
 or use our CDN version for instant enterprise deployment:
 
 ```html
-<script src"https://cdn.jsdelivr.net/gh/urbanmove8-qatar/retroplayer-entreprise/retroplayer.js"></script>
+<script src"https://cdn.jsdelivr.net/gh/urbanmove8-qatar/retroplayer-enterprise/retroplayer.js"></script>
 ```
 
 ## 🐛 Bug Reports & Feedback
 
 As an open-source enterprise solution, we value your feedback. 
 - You can report issues directly via the in-player context menu (Right-click > Feedback & Issues).
-- Or visit our [Issue Tracker](https://github.com/Urbanmove8/retroplayer-entreprise/issues).
+- Or visit our [Issue Tracker](https://github.com/urbanmove8-qatar/retroplayer-enterprise/issues).
 
 ## 📜 License
 This project is open-source and available under the MIT License.
